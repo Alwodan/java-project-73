@@ -1,0 +1,53 @@
+plugins {
+	id 'application'
+	id 'checkstyle'
+	id 'org.springframework.boot' version '3.1.2'
+	id 'io.spring.dependency-management' version '1.1.2'
+	id 'jacoco'
+}
+
+group = 'hexlet.code'
+version = '1.0-SNAPSHOT'
+
+application {
+	mainClass = 'hexlet.code.app.AppApplication'
+}
+
+compileJava {
+	options.release = 20
+}
+
+jacoco {
+	toolVersion = "0.8.10"
+}
+
+checkstyle {
+	toolVersion '10.12.1'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation platform('org.junit:junit-bom:5.9.2')
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+	testImplementation 'org.assertj:assertj-core:3.24.2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+task stage(dependsOn: [clean, installDist])
+installDist.mustRunAfter clean
