@@ -7,5 +7,6 @@ class AppApplicationTests {
     @Test
     void contextLoads() {
         assertThat(true).isTrue();
+        assertThat(false).isFalse();
     }
 }
