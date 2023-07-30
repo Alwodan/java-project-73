@@ -12,6 +12,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static hexlet.code.config.SpringConfig.TEST_PROFILE;
+import static hexlet.code.utils.TestUtils.TEST_EMAIL;
+import static hexlet.code.utils.TestUtils.TEST_EMAIL2;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,9 +32,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static hexlet.code.app.controllers.UserController.USER_CONTROLLER_PATH;
 
 
 @AutoConfigureMockMvc
@@ -46,9 +51,6 @@ public class UserControllerTest {
 
     @Autowired
     private TestUtils utils;
-
-    private final UserDto testDto =
-            new UserDto("Andrew", "Tate", "email@gmail.com", "1234");
 
     @AfterEach
     public void clear() {
@@ -75,9 +77,9 @@ public class UserControllerTest {
     @Test
     void testGetUser() throws Exception {
         utils.regDefaultUser();
-        User expectedUser = userRepository.findByFirstName("Andrew").get();
+        User expectedUser = userRepository.findByEmail(TEST_EMAIL).get();
         MockHttpServletResponse response = utils.perform(
-                        get("/users/" + expectedUser.getId()))
+                        get(USER_CONTROLLER_PATH + "/" + expectedUser.getId()), expectedUser.getEmail())
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
@@ -93,7 +95,7 @@ public class UserControllerTest {
     @Test
     public void getAllUsers() throws Exception {
         utils.regDefaultUser();
-        final var response = utils.perform(get("/users"))
+        final var response = utils.perform(get(USER_CONTROLLER_PATH))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
@@ -107,19 +109,30 @@ public class UserControllerTest {
     public void updateUser() throws Exception {
         utils.regDefaultUser();
 
-        final Long userId = userRepository.findByFirstName("Andrew").get().getId();
+        final Long userId = userRepository.findByEmail(TEST_EMAIL).get().getId();
 
-        final var userDto = new UserDto("Going", "Crazy", "jiga@email.ru", "1234");
+        final var userDto = new UserDto(TEST_EMAIL2, "Going", "Crazy", "1234");
 
-        final var updateRequest = put("/users/{id}", userId)
+        final var updateRequest = put(USER_CONTROLLER_PATH + "/" + userId)
                 .content(TestUtils.asJson(userDto))
                 .contentType(APPLICATION_JSON);
 
-        utils.perform(updateRequest).andExpect(status().isOk());
+        utils.perform(updateRequest, TEST_EMAIL).andExpect(status().isOk());
 
         assertTrue(userRepository.existsById(userId));
-        assertNull(userRepository.findByFirstName("Andrew").orElse(null));
-        assertNotNull(userRepository.findByFirstName("Going").orElse(null));
+        assertNull(userRepository.findByEmail(TEST_EMAIL).orElse(null));
+        assertNotNull(userRepository.findByEmail(TEST_EMAIL2).orElse(null));
+    }
 
+    @Test
+    public void deleteUser() throws Exception {
+        utils.regDefaultUser();
+
+        final Long userId = userRepository.findByEmail(TEST_EMAIL).get().getId();
+
+        utils.perform(delete(USER_CONTROLLER_PATH + "/" + userId), TEST_EMAIL)
+                .andExpect(status().isOk());
+
+        assertEquals(0, userRepository.count());
     }
 }

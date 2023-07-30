@@ -4,6 +4,7 @@ import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.User;
 import hexlet.code.app.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,11 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    public static final String USER_CONTROLLER_PATH = "/users";
+    private static final String ONLY_OWNER_BY_ID = """
+            @userRepository.findById(#id).get().getEmail() == authentication.getName()
+        """;
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.readById(id);
@@ -37,11 +43,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public User updateUser(@PathVariable Long id, @RequestBody UserDto dto) {
         return userService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public void deleteUser(@PathVariable Long id) {
         userService.delete(id);
     }
