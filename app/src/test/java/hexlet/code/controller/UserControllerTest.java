@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import hexlet.code.app.dto.LoginDto;
 import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.User;
 import hexlet.code.app.repository.UserRepository;
@@ -12,8 +13,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static hexlet.code.config.SpringConfig.TEST_PROFILE;
-import static hexlet.code.utils.TestUtils.TEST_EMAIL;
-import static hexlet.code.utils.TestUtils.TEST_EMAIL2;
+import static hexlet.code.utils.TestUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,6 +35,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static hexlet.code.app.controllers.UserController.USER_CONTROLLER_PATH;
@@ -106,6 +107,17 @@ public class UserControllerTest {
     }
 
     @Test
+    public void login() throws Exception {
+        utils.regDefaultUser();
+        final LoginDto loginDto = new LoginDto(
+                utils.getTestDto().getEmail(),
+                utils.getTestDto().getPassword()
+        );
+        final var loginRequest = post("/login").content(asJson(loginDto)).contentType(APPLICATION_JSON);
+        utils.perform(loginRequest).andExpect(status().isOk());
+    }
+
+    @Test
     public void updateUser() throws Exception {
         utils.regDefaultUser();
 
@@ -114,7 +126,7 @@ public class UserControllerTest {
         final var userDto = new UserDto(TEST_EMAIL2, "Going", "Crazy", "1234");
 
         final var updateRequest = put(USER_CONTROLLER_PATH + "/" + userId)
-                .content(TestUtils.asJson(userDto))
+                .content(asJson(userDto))
                 .contentType(APPLICATION_JSON);
 
         utils.perform(updateRequest, TEST_EMAIL).andExpect(status().isOk());

@@ -26,8 +26,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final JWTHelper jwtHelper;
 
-
-
     public JWTAuthenticationFilter(final AuthenticationManager authenticationManager,
                                    final RequestMatcher loginRequest,
                                    final JWTHelper jwtHelper) {
@@ -41,7 +39,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 final HttpServletResponse response) throws AuthenticationException {
         final LoginDto loginData = getLoginData(request);
         final var authRequest = new UsernamePasswordAuthenticationToken(
-                loginData.getUsername(),
+                loginData.getEmail(),
                 loginData.getPassword()
         );
         setDetails(request, authRequest);
