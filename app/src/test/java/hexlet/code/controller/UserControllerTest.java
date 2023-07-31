@@ -13,7 +13,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static hexlet.code.config.SpringConfig.TEST_PROFILE;
-import static hexlet.code.utils.TestUtils.*;
+import static hexlet.code.utils.TestUtils.TEST_EMAIL;
+import static hexlet.code.utils.TestUtils.TEST_EMAIL2;
+import static hexlet.code.utils.TestUtils.asJson;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -110,8 +112,8 @@ public class UserControllerTest {
     public void login() throws Exception {
         utils.regDefaultUser();
         final LoginDto loginDto = new LoginDto(
-                utils.getTestDto().getEmail(),
-                utils.getTestDto().getPassword()
+                utils.getTestRegistrationDto().getEmail(),
+                utils.getTestRegistrationDto().getPassword()
         );
         final var loginRequest = post("/login").content(asJson(loginDto)).contentType(APPLICATION_JSON);
         utils.perform(loginRequest).andExpect(status().isOk());

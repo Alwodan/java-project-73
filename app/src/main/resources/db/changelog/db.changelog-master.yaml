@@ -1,6 +1,27 @@
 databaseChangeLog:
 - changeSet:
-    id: 1690722438214-1
+    id: 1690794763820-1
+    author: alwodan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: statusesPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_at
+            type: TIMESTAMP(6)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        tableName: statuses
+- changeSet:
+    id: 1690794763820-2
     author: alwodan (generated)
     changes:
     - createTable:

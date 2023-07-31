@@ -2,7 +2,7 @@ package hexlet.code.app.controllers;
 
 import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.User;
-import hexlet.code.app.service.UserService;
+import hexlet.code.app.service.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
