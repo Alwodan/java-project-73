@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static hexlet.code.app.controllers.UserController.USER_CONTROLLER_PATH;
+
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("${base-url}/users")
+@RequestMapping("${base-url}" + USER_CONTROLLER_PATH)
 public class UserController {
     private final UserService userService;
 

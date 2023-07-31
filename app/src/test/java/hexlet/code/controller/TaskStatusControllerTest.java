@@ -33,14 +33,16 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 import static hexlet.code.app.controllers.TaskStatusController.STATUS_CONTROLLER_PATH;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @ActiveProfiles(TEST_PROFILE)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = SpringConfig.class)
-public class TestStatusTest {
+public class TaskStatusControllerTest {
 
     @Autowired
     private TaskStatusRepository statusRepository;
@@ -59,7 +61,7 @@ public class TestStatusTest {
     }
 
     @Test
-    void testCreateStatus() throws Exception {
+    void testCreateStatus() {
         assertEquals(0, statusRepository.count());
         utils.createDefaultStatus();
         assertEquals(1, statusRepository.count());
@@ -68,6 +70,7 @@ public class TestStatusTest {
     @Test
     void testGetStatus() throws Exception {
         utils.createDefaultStatus();
+
         TaskStatus expectedStatus = statusRepository.findByName(TEST_STATUS).get();
         MockHttpServletResponse response = utils.perform(
                 get(STATUS_CONTROLLER_PATH + "/" + expectedStatus.getId()), TEST_EMAIL)
@@ -83,6 +86,7 @@ public class TestStatusTest {
     @Test
     public void getAllStatuses() throws Exception {
         utils.createDefaultStatus();
+
         MockHttpServletResponse response = utils.perform(get(STATUS_CONTROLLER_PATH), TEST_EMAIL)
                 .andExpect(status().isOk())
                 .andReturn()

@@ -15,4 +15,6 @@ public interface UserService {
     User readById(Long id);
 
     void delete(Long id);
+
+    User getCurrentUser();
 }

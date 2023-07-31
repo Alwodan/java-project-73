@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1690794763820-1
+    id: 1690812925851-1
     author: alwodan (generated)
     changes:
     - createTable:
@@ -21,7 +21,40 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: statuses
 - changeSet:
-    id: 1690794763820-2
+    id: 1690812925851-2
+    author: alwodan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: tasksPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_at
+            type: TIMESTAMP(6)
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: author_id
+            type: BIGINT
+        - column:
+            name: executor_id
+            type: BIGINT
+        - column:
+            name: task_status_id
+            type: BIGINT
+        tableName: tasks
+- changeSet:
+    id: 1690812925851-3
     author: alwodan (generated)
     changes:
     - createTable:
@@ -50,4 +83,43 @@ databaseChangeLog:
             name: password
             type: VARCHAR(255)
         tableName: users
+- changeSet:
+    id: 1690812925851-4
+    author: alwodan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: executor_id
+        baseTableName: tasks
+        constraintName: FKbrg922bkqn5m7212jsqjg6ioe
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1690812925851-5
+    author: alwodan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_status_id
+        baseTableName: tasks
+        constraintName: FKdv9k4oaxnrxb91o32qq1tes7s
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: statuses
+        validate: true
+- changeSet:
+    id: 1690812925851-6
+    author: alwodan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: tasks
+        constraintName: FKhods8r8oyyx7tuj3c91ki2sk1
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
 

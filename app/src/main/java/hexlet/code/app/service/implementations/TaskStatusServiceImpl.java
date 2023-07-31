@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 @AllArgsConstructor
-public class TaskStatusServiceImp implements TaskStatusService {
+public class TaskStatusServiceImpl implements TaskStatusService {
     private TaskStatusRepository taskStatusRepository;
 
     @Override

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static hexlet.code.app.controllers.TaskStatusController.STATUS_CONTROLLER_PATH;
+
 import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("${base-url}/statuses")
+@RequestMapping("${base-url}" + STATUS_CONTROLLER_PATH)
 public class TaskStatusController {
 
     private final TaskStatusService taskStatusService;

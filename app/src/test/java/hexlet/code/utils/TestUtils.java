@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.app.component.JWTHelper;
-import hexlet.code.app.dto.TaskStatusDto;
 import hexlet.code.app.dto.UserDto;
+import hexlet.code.app.model.Task;
+import hexlet.code.app.model.TaskStatus;
+import hexlet.code.app.repository.TaskRepository;
 import hexlet.code.app.repository.TaskStatusRepository;
 import hexlet.code.app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.util.Map;
 
-import static hexlet.code.app.controllers.TaskStatusController.STATUS_CONTROLLER_PATH;
 import static hexlet.code.app.controllers.UserController.USER_CONTROLLER_PATH;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -31,13 +32,11 @@ public class TestUtils {
     public static final String TEST_STATUS = "testingStatus";
     public static final String TEST_STATUS2 = "newStatus";
 
+    public static final String TEST_TASK = "testingTask";
+    public static final String TEST_TASK2 = "newTask";
+
     private final UserDto testRegistrationDto =
             new UserDto(TEST_EMAIL, "Andrew", "Tate", "12345");
-    private final TaskStatusDto testStatusDto = new TaskStatusDto(TEST_STATUS);
-
-    public TaskStatusDto getTestStatusDto() {
-        return testStatusDto;
-    }
 
     public UserDto getTestRegistrationDto() {
         return testRegistrationDto;
@@ -55,25 +54,17 @@ public class TestUtils {
     @Autowired
     private TaskStatusRepository statusRepository;
 
+    @Autowired
+    private TaskRepository taskRepository;
+
     public void tearDown() {
+        taskRepository.deleteAll();
         userRepository.deleteAll();
         statusRepository.deleteAll();
     }
 
     public ResultActions regDefaultUser() throws Exception {
         return regUser(testRegistrationDto);
-    }
-
-    public ResultActions createDefaultStatus() throws Exception {
-        return createStatus(testStatusDto);
-    }
-
-    public ResultActions createStatus(final TaskStatusDto dto) throws Exception {
-        final var request = post(STATUS_CONTROLLER_PATH)
-                .content(asJson(dto))
-                .contentType(APPLICATION_JSON);
-
-        return perform(request, TEST_EMAIL);
     }
 
     public ResultActions regUser(final UserDto dto) throws Exception {
@@ -103,5 +94,23 @@ public class TestUtils {
 
     public static <T> T fromJson(final String json, final TypeReference<T> to) throws JsonProcessingException {
         return MAPPER.readValue(json, to);
+    }
+
+    public void createDefaultStatus() {
+        TaskStatus status = new TaskStatus();
+        status.setName(TEST_STATUS);
+        statusRepository.save(status);
+    }
+
+    public void createDefaultTask() {
+        createDefaultStatus();
+        Task task = Task.builder()
+                .name(TEST_TASK)
+                .description("testDescription")
+                .author(userRepository.findByEmail(TEST_EMAIL).get())
+                .taskStatus(statusRepository.findByName(TEST_STATUS).get())
+                .build();
+
+        taskRepository.save(task);
     }
 }
