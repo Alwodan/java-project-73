@@ -1,9 +1,11 @@
 package hexlet.code.app.service.implementations;
 
 import hexlet.code.app.dto.TaskDto;
+import hexlet.code.app.model.Label;
 import hexlet.code.app.model.Task;
 import hexlet.code.app.model.TaskStatus;
 import hexlet.code.app.model.User;
+import hexlet.code.app.repository.LabelRepository;
 import hexlet.code.app.repository.TaskRepository;
 import hexlet.code.app.repository.TaskStatusRepository;
 import hexlet.code.app.repository.UserRepository;
@@ -13,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +27,7 @@ public class TaskServiceImpl implements TaskService {
     private UserService userService;
     private UserRepository userRepository;
     private TaskStatusRepository statusRepository;
+    private LabelRepository labelRepository;
 
     @Override
     public Task readById(Long id) {
@@ -54,26 +58,36 @@ public class TaskServiceImpl implements TaskService {
         return processDto(task, dto);
     }
 
-    // Maybe I should add something like this to other services
-    private Task processDto(Task task, TaskDto dto) {
-        User executor =
-                dto.getExecutorId() == null ? null : userRepository.findById(dto.getExecutorId()).get();
-        TaskStatus status =
-                dto.getTaskStatusId() == null ? null : statusRepository.findById(dto.getTaskStatusId()).get();
-
-        task.setExecutor(executor);
-        task.setTaskStatus(status);
-        task.setName(dto.getName());
-        task.setDescription(dto.getDescription());
-
-        return taskRepository.save(task);
-    }
-
     @Override
     public void delete(Long id) {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot delete non-existing task"));
 
         taskRepository.delete(task);
+    }
+
+    // Maybe I should add something like this to other services
+    private Task processDto(Task task, TaskDto dto) {
+        User executor = dto.getExecutorId() == null ? null : userRepository.findById(dto.getExecutorId()).get();
+        TaskStatus status = statusRepository.findById(dto.getTaskStatusId()).orElseThrow();
+        List<Label> labels = getLabelsFromIds(dto.getLabelIds());
+
+        task.setExecutor(executor);
+        task.setTaskStatus(status);
+        task.setLabels(labels);
+        task.setName(dto.getName());
+        task.setDescription(dto.getDescription());
+
+        return taskRepository.save(task);
+    }
+
+    private List<Label> getLabelsFromIds(List<Long> labelIds) {
+        List<Label> result = new ArrayList<>();
+        if (labelIds != null) {
+            for (Long id : labelIds) {
+                result.add(labelRepository.findById(id).orElseThrow());
+            }
+        }
+        return result;
     }
 }

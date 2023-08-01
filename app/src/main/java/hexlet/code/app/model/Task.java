@@ -20,7 +20,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -55,7 +55,7 @@ public class Task {
     private TaskStatus taskStatus;
 
     @ManyToMany
-    private Set<Label> labels;
+    private List<Label> labels;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

@@ -7,6 +7,7 @@ import hexlet.code.app.component.JWTHelper;
 import hexlet.code.app.dto.UserDto;
 import hexlet.code.app.model.Task;
 import hexlet.code.app.model.TaskStatus;
+import hexlet.code.app.repository.LabelRepository;
 import hexlet.code.app.repository.TaskRepository;
 import hexlet.code.app.repository.TaskStatusRepository;
 import hexlet.code.app.repository.UserRepository;
@@ -50,15 +51,16 @@ public class TestUtils {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private TaskStatusRepository statusRepository;
-
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private LabelRepository labelRepository;
 
     public void tearDown() {
         taskRepository.deleteAll();
+        labelRepository.deleteAll();
         userRepository.deleteAll();
         statusRepository.deleteAll();
     }

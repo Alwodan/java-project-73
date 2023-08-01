@@ -113,7 +113,6 @@ public class TaskControllerTest {
 
         final TaskDto taskDto = new TaskDto();
         taskDto.setName(TEST_TASK2);
-        taskDto.setAuthorId(userRepository.findByEmail(TEST_EMAIL).get().getId());
         taskDto.setTaskStatusId(taskStatusRepository.findByName(TEST_STATUS).get().getId());
 
         final var updateRequest = put(TASK_CONTROLLER_PATH + "/" + taskId)

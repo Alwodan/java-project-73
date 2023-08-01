@@ -1,6 +1,27 @@
 databaseChangeLog:
 - changeSet:
-    id: 1690812925851-1
+    id: 1690889149043-1
+    author: alwodan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: labelsPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_at
+            type: TIMESTAMP(6)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        tableName: labels
+- changeSet:
+    id: 1690889149043-2
     author: alwodan (generated)
     changes:
     - createTable:
@@ -21,7 +42,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: statuses
 - changeSet:
-    id: 1690812925851-2
+    id: 1690889149043-3
     author: alwodan (generated)
     changes:
     - createTable:
@@ -54,7 +75,24 @@ databaseChangeLog:
             type: BIGINT
         tableName: tasks
 - changeSet:
-    id: 1690812925851-3
+    id: 1690889149043-4
+    author: alwodan (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: task_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: labels_id
+            type: BIGINT
+        tableName: tasks_labels
+- changeSet:
+    id: 1690889149043-5
     author: alwodan (generated)
     changes:
     - createTable:
@@ -84,7 +122,33 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: users
 - changeSet:
-    id: 1690812925851-4
+    id: 1690889149043-6
+    author: alwodan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: labels_id
+        baseTableName: tasks_labels
+        constraintName: FK1jqo1eikgg8xnhi58yp81b8nl
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: labels
+        validate: true
+- changeSet:
+    id: 1690889149043-7
+    author: alwodan (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_id
+        baseTableName: tasks_labels
+        constraintName: FK9qrs86gyw7ctgqiwqvr9jkf0l
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: tasks
+        validate: true
+- changeSet:
+    id: 1690889149043-8
     author: alwodan (generated)
     changes:
     - addForeignKeyConstraint:
@@ -97,7 +161,7 @@ databaseChangeLog:
         referencedTableName: users
         validate: true
 - changeSet:
-    id: 1690812925851-5
+    id: 1690889149043-9
     author: alwodan (generated)
     changes:
     - addForeignKeyConstraint:
@@ -110,7 +174,7 @@ databaseChangeLog:
         referencedTableName: statuses
         validate: true
 - changeSet:
-    id: 1690812925851-6
+    id: 1690889149043-10
     author: alwodan (generated)
     changes:
     - addForeignKeyConstraint:
