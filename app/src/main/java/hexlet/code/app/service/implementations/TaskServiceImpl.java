@@ -1,5 +1,6 @@
 package hexlet.code.app.service.implementations;
 
+import com.querydsl.core.types.Predicate;
 import hexlet.code.app.dto.TaskDto;
 import hexlet.code.app.model.Label;
 import hexlet.code.app.model.Task;
@@ -35,8 +36,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> readAll() {
-        return taskRepository.findAll();
+    public Iterable<Task> readAll(Predicate predicate) {
+        return taskRepository.findAll(predicate);
     }
 
     @Override

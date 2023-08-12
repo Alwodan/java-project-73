@@ -1,14 +1,13 @@
 package hexlet.code.app.service.interfaces;
 
+import com.querydsl.core.types.Predicate;
 import hexlet.code.app.dto.TaskDto;
 import hexlet.code.app.model.Task;
-
-import java.util.List;
 
 public interface TaskService {
     Task readById(Long id);
 
-    List<Task> readAll();
+    Iterable<Task> readAll(Predicate predicate);
 
     Task create(TaskDto dto);
 
