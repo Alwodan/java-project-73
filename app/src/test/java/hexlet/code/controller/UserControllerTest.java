@@ -73,7 +73,7 @@ public class UserControllerTest {
     @Test
     void testCreatePerson() throws Exception {
         assertEquals(0, userRepository.count());
-        utils.regDefaultUser().andExpect(status().isOk());
+        utils.regDefaultUser().andExpect(status().isCreated());
         assertEquals(1, userRepository.count());
     }
 
