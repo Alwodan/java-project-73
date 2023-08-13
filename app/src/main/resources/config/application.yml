@@ -1,5 +1,9 @@
 base-url: /api
 
+springdoc:
+  swagger-ui:
+    path: /swagger
+
 spring:
   application:
     name: app
