@@ -18,3 +18,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+rollbar_token: ${ROLLBAR_TOKEN}
