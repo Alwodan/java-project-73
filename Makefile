@@ -1,31 +1,38 @@
 .DEFAULT_GOAL := build-run
 
 clean:
-	make -C app clean
+	./gradlew clean
 
 build:
-	make -C app build
+	./gradlew clean build
+
+start:
+	./gradlew bootRun --args='--spring.profiles.active=dev'
+
+start-prod:
+	./gradlew bootRun --args='--spring.profiles.active=prod'
 
 install:
-	make -C app install
+	./gradlew clean install
 
 run-dist:
-	make -C app run-dist
+	./build/install/app/bin/app
 
 run:
-	make -C app run
+	./gradlew run
 
 test:
-	make -C app test
+	./gradlew test
 
 report:
-	make -C app report
+	./gradlew jacocoTestReport
 
 lint:
-	make -C app lint
-	
+	./gradlew checkstyleMain checkstyleTest
+
 update-deps:
-	make -C app update-deps
+	./gradlew useLatestVersions
+
 
 build-run: build run
 
