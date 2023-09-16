@@ -1,9 +1,9 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import hexlet.code.app.dto.LabelDto;
-import hexlet.code.app.model.Label;
-import hexlet.code.app.repository.LabelRepository;
+import hexlet.code.dto.LabelDto;
+import hexlet.code.model.Label;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.config.SpringConfig;
 import hexlet.code.utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-import static hexlet.code.app.controllers.LabelController.LABEL_CONTROLLER_PATH;
+import static hexlet.code.controllers.LabelController.LABEL_CONTROLLER_PATH;
 import static hexlet.code.utils.TestUtils.TEST_EMAIL;
 import static hexlet.code.utils.TestUtils.asJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;

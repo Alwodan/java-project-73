@@ -1,10 +1,10 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import hexlet.code.app.dto.LoginDto;
-import hexlet.code.app.dto.UserDto;
-import hexlet.code.app.model.User;
-import hexlet.code.app.repository.UserRepository;
+import hexlet.code.dto.LoginDto;
+import hexlet.code.dto.UserDto;
+import hexlet.code.model.User;
+import hexlet.code.repository.UserRepository;
 
 import hexlet.code.config.SpringConfig;
 import hexlet.code.utils.TestUtils;
@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static hexlet.code.app.controllers.UserController.USER_CONTROLLER_PATH;
+import static hexlet.code.controllers.UserController.USER_CONTROLLER_PATH;
 
 
 @AutoConfigureMockMvc

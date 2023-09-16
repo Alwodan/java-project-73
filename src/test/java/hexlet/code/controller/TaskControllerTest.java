@@ -1,11 +1,11 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import hexlet.code.app.dto.TaskDto;
-import hexlet.code.app.model.Task;
-import hexlet.code.app.repository.TaskRepository;
-import hexlet.code.app.repository.TaskStatusRepository;
-import hexlet.code.app.repository.UserRepository;
+import hexlet.code.dto.TaskDto;
+import hexlet.code.model.Task;
+import hexlet.code.repository.TaskRepository;
+import hexlet.code.repository.TaskStatusRepository;
+import hexlet.code.repository.UserRepository;
 import hexlet.code.config.SpringConfig;
 import hexlet.code.utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -22,7 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static hexlet.code.app.controllers.TaskController.TASK_CONTROLLER_PATH;
+import static hexlet.code.controllers.TaskController.TASK_CONTROLLER_PATH;
 import static hexlet.code.config.SpringConfig.TEST_PROFILE;
 import static hexlet.code.utils.TestUtils.TEST_EMAIL;
 import static hexlet.code.utils.TestUtils.TEST_STATUS;

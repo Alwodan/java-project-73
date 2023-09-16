@@ -1,9 +1,9 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import hexlet.code.app.dto.TaskStatusDto;
-import hexlet.code.app.model.TaskStatus;
-import hexlet.code.app.repository.TaskStatusRepository;
+import hexlet.code.dto.TaskStatusDto;
+import hexlet.code.model.TaskStatus;
+import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.config.SpringConfig;
 import hexlet.code.utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-import static hexlet.code.app.controllers.TaskStatusController.STATUS_CONTROLLER_PATH;
+import static hexlet.code.controllers.TaskStatusController.STATUS_CONTROLLER_PATH;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;

@@ -3,14 +3,14 @@ package hexlet.code.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.app.component.JWTHelper;
-import hexlet.code.app.dto.UserDto;
-import hexlet.code.app.model.Task;
-import hexlet.code.app.model.TaskStatus;
-import hexlet.code.app.repository.LabelRepository;
-import hexlet.code.app.repository.TaskRepository;
-import hexlet.code.app.repository.TaskStatusRepository;
-import hexlet.code.app.repository.UserRepository;
+import hexlet.code.component.JWTHelper;
+import hexlet.code.dto.UserDto;
+import hexlet.code.model.Task;
+import hexlet.code.model.TaskStatus;
+import hexlet.code.repository.LabelRepository;
+import hexlet.code.repository.TaskRepository;
+import hexlet.code.repository.TaskStatusRepository;
+import hexlet.code.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.util.Map;
 
-import static hexlet.code.app.controllers.UserController.USER_CONTROLLER_PATH;
+import static hexlet.code.controllers.UserController.USER_CONTROLLER_PATH;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
