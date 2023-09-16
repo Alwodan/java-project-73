@@ -38,8 +38,8 @@ public class TaskController {
 
     @Operation(summary = "Get specific task by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task found"),
-            @ApiResponse(responseCode = "404", description = "Task with that id not found")
+        @ApiResponse(responseCode = "200", description = "Task found"),
+        @ApiResponse(responseCode = "404", description = "Task with that id not found")
     })
     @GetMapping("/{id}")
     public Task getTaskById(@PathVariable Long id) {
@@ -66,8 +66,8 @@ public class TaskController {
 
     @Operation(summary = "Patch task by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task updated"),
-            @ApiResponse(responseCode = "404", description = "Task with that id not found")
+        @ApiResponse(responseCode = "200", description = "Task updated"),
+        @ApiResponse(responseCode = "404", description = "Task with that id not found")
     })
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody TaskDto dto) {
@@ -77,8 +77,8 @@ public class TaskController {
 
     @Operation(summary = "Delete task by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task deleted"),
-            @ApiResponse(responseCode = "404", description = "Task with that id not found")
+        @ApiResponse(responseCode = "200", description = "Task deleted"),
+        @ApiResponse(responseCode = "404", description = "Task with that id not found")
     })
     @DeleteMapping("/{id}")
     @PreAuthorize(ONLY_OWNER_BY_ID)

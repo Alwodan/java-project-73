@@ -37,8 +37,8 @@ public class UserController {
 
     @Operation(summary = "Get specific user by his id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User found"),
-            @ApiResponse(responseCode = "404", description = "User with that id not found")
+        @ApiResponse(responseCode = "200", description = "User found"),
+        @ApiResponse(responseCode = "404", description = "User with that id not found")
     })
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
@@ -65,8 +65,8 @@ public class UserController {
 
     @Operation(summary = "Patch user by his id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User updated"),
-            @ApiResponse(responseCode = "404", description = "User with that id not found")
+        @ApiResponse(responseCode = "200", description = "User updated"),
+        @ApiResponse(responseCode = "404", description = "User with that id not found")
     })
     @PutMapping("/{id}")
     @PreAuthorize(ONLY_OWNER_BY_ID)
@@ -77,8 +77,8 @@ public class UserController {
 
     @Operation(summary = "Delete user by his id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User deleted"),
-            @ApiResponse(responseCode = "404", description = "User with that id not found")
+        @ApiResponse(responseCode = "200", description = "User deleted"),
+        @ApiResponse(responseCode = "404", description = "User with that id not found")
     })
     @DeleteMapping("/{id}")
     @PreAuthorize(ONLY_OWNER_BY_ID)

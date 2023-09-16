@@ -33,8 +33,8 @@ public class LabelController {
 
     @Operation(summary = "Get specific label by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Label found"),
-            @ApiResponse(responseCode = "404", description = "Label with that id not found")
+        @ApiResponse(responseCode = "200", description = "Label found"),
+        @ApiResponse(responseCode = "404", description = "Label with that id not found")
     })
     @GetMapping("/{id}")
     public Label getLabelById(@PathVariable Long id) {
@@ -58,8 +58,8 @@ public class LabelController {
 
     @Operation(summary = "Patch label by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Label updated"),
-            @ApiResponse(responseCode = "404", description = "Label with that id not found")
+        @ApiResponse(responseCode = "200", description = "Label updated"),
+        @ApiResponse(responseCode = "404", description = "Label with that id not found")
     })
     @PutMapping("/{id}")
     public Label updateLabel(@PathVariable Long id, @RequestBody LabelDto dto) {
@@ -68,8 +68,8 @@ public class LabelController {
 
     @Operation(summary = "Delete label by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Label deleted"),
-            @ApiResponse(responseCode = "404", description = "Label with that id not found")
+        @ApiResponse(responseCode = "200", description = "Label deleted"),
+        @ApiResponse(responseCode = "404", description = "Label with that id not found")
     })
     @DeleteMapping("/{id}")
     public void deleteLabel(@PathVariable Long id) {

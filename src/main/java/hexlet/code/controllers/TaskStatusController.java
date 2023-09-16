@@ -59,8 +59,8 @@ public class TaskStatusController {
 
     @Operation(summary = "Patch task status by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task status updated"),
-            @ApiResponse(responseCode = "404", description = "Task status with that id not found")
+        @ApiResponse(responseCode = "200", description = "Task status updated"),
+        @ApiResponse(responseCode = "404", description = "Task status with that id not found")
     })
     @PutMapping("/{id}")
     public TaskStatus updateStatus(@PathVariable Long id, @RequestBody TaskStatusDto dto) {
@@ -69,8 +69,8 @@ public class TaskStatusController {
 
     @Operation(summary = "Delete task status by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task status deleted"),
-            @ApiResponse(responseCode = "404", description = "Task status with that id not found")
+        @ApiResponse(responseCode = "200", description = "Task status deleted"),
+        @ApiResponse(responseCode = "404", description = "Task status with that id not found")
     })
     @DeleteMapping("/{id}")
     public void deleteStatus(@PathVariable Long id) {
