@@ -33,8 +33,8 @@ public class TaskStatusController {
 
     @Operation(summary = "Get specific task status by its id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Task status found"),
-            @ApiResponse(responseCode = "404", description = "Task status with that id not found")
+        @ApiResponse(responseCode = "200", description = "Task status found"),
+        @ApiResponse(responseCode = "404", description = "Task status with that id not found")
     })
     @GetMapping("/{id}")
     public TaskStatus getStatusById(@PathVariable Long id) {
