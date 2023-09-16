@@ -18,6 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - run: chmod +x gradlew
+
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
