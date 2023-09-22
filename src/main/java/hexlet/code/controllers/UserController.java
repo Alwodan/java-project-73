@@ -78,7 +78,8 @@ public class UserController {
     @Operation(summary = "Delete user by his id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "User deleted"),
-        @ApiResponse(responseCode = "404", description = "User with that id not found")
+        @ApiResponse(responseCode = "404", description = "User with that id not found"),
+        @ApiResponse(responseCode = "409", description = "User with that id cannot be deleted")
     })
     @DeleteMapping("/{id}")
     @PreAuthorize(ONLY_OWNER_BY_ID)

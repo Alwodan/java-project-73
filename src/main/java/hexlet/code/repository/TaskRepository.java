@@ -7,5 +7,9 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<Task, Long>, QuerydslPredicateExecutor<Task> {
+    boolean existsByAuthorIdOrExecutorId(Long id, Long id1);
+    boolean existsByLabelsId(Long id);
+    boolean existsByTaskStatusId(Long id);
+
     Optional<Task> findByName(String name);
 }

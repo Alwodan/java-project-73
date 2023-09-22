@@ -13,8 +13,10 @@ import hexlet.code.repository.UserRepository;
 import hexlet.code.service.interfaces.TaskService;
 import hexlet.code.service.interfaces.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task readById(Long id) {
-        return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No such task"));
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such task"));
     }
 
     @Override
@@ -46,31 +49,39 @@ public class TaskServiceImpl implements TaskService {
         User author = userRepository.findById(userService.getCurrentUser().getId()).orElseThrow();
 
         task.setAuthor(author);
-        return processDto(task, dto);
+        return saveDto(task, dto);
     }
 
     @Override
     public Task update(Long id, TaskDto dto) {
         if (taskRepository.findById(id).isEmpty()) {
-            throw new IllegalArgumentException("Cannot update non-existing task");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot update non-existing task");
         }
         Task task = taskRepository.findById(id).orElseThrow();
 
-        return processDto(task, dto);
+        return saveDto(task, dto);
     }
 
     @Override
     public void delete(Long id) {
         Task task = taskRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Cannot delete non-existing task"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Cannot delete non-existing task"));
 
         taskRepository.delete(task);
     }
 
     // Maybe I should add something like this to other services
-    private Task processDto(Task task, TaskDto dto) {
-        User executor = dto.getExecutorId() == null ? null : userRepository.findById(dto.getExecutorId()).get();
-        TaskStatus status = statusRepository.findById(dto.getTaskStatusId()).orElseThrow();
+    private Task saveDto(Task task, TaskDto dto) {
+        User executor = dto.getExecutorId() == null ? null : userRepository.findById(dto.getExecutorId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such user"));
+
+        if (dto.getTaskStatusId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status needed");
+        }
+        TaskStatus status = statusRepository.findById(dto.getTaskStatusId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No such status"));
+
         List<Label> labels = getLabelsFromIds(dto.getLabelIds());
 
         task.setExecutor(executor);

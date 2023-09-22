@@ -70,7 +70,8 @@ public class TaskStatusController {
     @Operation(summary = "Delete task status by its id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Task status deleted"),
-        @ApiResponse(responseCode = "404", description = "Task status with that id not found")
+        @ApiResponse(responseCode = "404", description = "Task status with that id not found"),
+        @ApiResponse(responseCode = "409", description = "Task status with that id cannot be deleted")
     })
     @DeleteMapping("/{id}")
     public void deleteStatus(@PathVariable Long id) {

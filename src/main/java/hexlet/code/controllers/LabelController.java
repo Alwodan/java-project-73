@@ -69,7 +69,8 @@ public class LabelController {
     @Operation(summary = "Delete label by its id")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Label deleted"),
-        @ApiResponse(responseCode = "404", description = "Label with that id not found")
+        @ApiResponse(responseCode = "404", description = "Label with that id not found"),
+        @ApiResponse(responseCode = "409", description = "Label with that id cannot be deleted")
     })
     @DeleteMapping("/{id}")
     public void deleteLabel(@PathVariable Long id) {
